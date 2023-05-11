@@ -7,11 +7,12 @@
 
 import Foundation
 
-var contiueOrNot : String?
+var rawUserInput : String?
+var usrName: String
+
 
 repeat {
 
+    rawUserInput = readLine()
     
-} while contiueOrNot.lowercased() !=y {
-    
-}
+} while rawUserInput?.lowercased() != "y"
