@@ -7,9 +7,10 @@
 
 import Foundation
 
-var contiueOrNot: String = readLine()
+var contiueOrNot : String?
 
 repeat {
+
     
 } while contiueOrNot.lowercased() !=y {
     
