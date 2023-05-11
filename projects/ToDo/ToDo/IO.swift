@@ -9,31 +9,30 @@ import Foundation
 
 public class IO {
     
-    static func getTasksUrlFromDesktop() -> URL {
-        let documents: [URL] = FileManager.default.urls(for: .desktopDirectory, in: .userDomainMask)
-        let tasksFileUrl: URL = documents[0]  // This is an assumption!
-        return tasksFileUrl
+    private static func getTasksUrlFromDesktop(fileName: String) -> URL {
+        let desktopDocuments = FileManager.default.urls(for: .desktopDirectory, in: .allDomainsMask).first!
+        let tasksURL = desktopDocuments.appending(path: fileName)
+        return tasksURL
     }
 
-    static func getTextFromURL(url: URL) -> String {
+    private static func getTextFromURL(url: URL) -> String {
         var text = ""
         try? text = String(contentsOf: url)
         return text
     }
 
-    public static func readTasksFromDesktop() -> String {
-        let tasksUrl: URL = getTasksUrlFromDesktop()
+    public static func readTasksFromDesktop(fileName: String) -> String {
+        let tasksUrl: URL = getTasksUrlFromDesktop(fileName: fileName)
         let text = getTextFromURL(url: tasksUrl)
         return text
     }
 
-
     public static func saveTasksToDesktop(tasks: [Tasks], fileName: String) -> Void {
-        let filePath: URL = getTasksUrlFromDesktop().appending(path: fileName)
+        let tasksURL: URL = getTasksUrlFromDesktop(fileName: fileName)
         let allTasksAsString = TodoList.convertTasksToString(tasks: tasks)
         let textToWrite = allTasksAsString
         do {
-            try textToWrite.write(to: filePath, atomically: true, encoding: .utf8)
+            try textToWrite.write(to: tasksURL, atomically: true, encoding: .utf8)
         } catch {
             print(error.localizedDescription)
         }
