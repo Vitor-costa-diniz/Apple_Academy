@@ -35,12 +35,14 @@ repeat {
         var readTaskFromDesktop = IO.readTasksFromDesktop(fileName: "TaskList")
         print(readTaskFromDesktop)
     case "2":
-        print("Pesquisar uma tarefa")
+        print("Adicionar uma Task")
     case "3":
-        print("Editar uma tarefa")
+        print("Pesquisar uma tarefa")
     case "4":
-        print("Excluir uma tarefa")
+        print("Editar uma tarefa")
     case "5":
+        print("Excluir uma tarefa")
+    case "6":
         print("Volte sempre \(usrName!)")
     default:
         print("Por favor utilize apenas os numeros apresentados na tela.")
