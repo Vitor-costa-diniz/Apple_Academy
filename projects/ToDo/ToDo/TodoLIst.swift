@@ -18,7 +18,7 @@ public class TodoList {
     public static func convertTasksToString(tasks: [Tasks]) -> String {
         var text = ""
         for task in tasks {
-            text += task.asString()
+            text += (task.asString() + "\n")
         }
         return text
     }
