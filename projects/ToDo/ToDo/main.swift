@@ -26,18 +26,24 @@ usrName = readLine()
 
     IO.saveTasksToDesktop(tasks: taskArray, fileName: "TaskList")
 
-
-
-
-
 repeat {
     print(defaultAppMessages.defaultOptions)
     rawUserInput = readLine()
     
+    switch rawUserInput {
+    case "1":
+        var readTaskFromDesktop = IO.readTasksFromDesktop(fileName: "TaskList")
+        print(readTaskFromDesktop)
+    case "2":
+        print("Pesquisar uma tarefa")
+    case "3":
+        print("Editar uma tarefa")
+    case "4":
+        print("Excluir uma tarefa")
+    case "5":
+        print("Volte sempre \(usrName!)")
+    default:
+        print("Por favor utilize apenas os numeros apresentados na tela.")
+    }
     
-    
-    usrContinueOrNot = defaultAppMessages.continueOrTerminate()
-    
-    
-    
-} while usrContinueOrNot?.lowercased() != "y"
+} while rawUserInput != "5"
