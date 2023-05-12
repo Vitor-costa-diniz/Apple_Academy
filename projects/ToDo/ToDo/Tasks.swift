@@ -47,6 +47,16 @@ public class Tasks {
         let description = String(text[text.index(after: indexOfLastTab)...])
         let task = Tasks(title: title, description: description)
 
+        let indexOfOpenBracket = text.firstIndex(of: "[")!
+        let indexOfCompletionStatus = text.index(after: indexOfOpenBracket)
+        let completionStatus = text[indexOfCompletionStatus]
+        if completionStatus == "x" {
+            task.isCompleted = true
+        }
+        else {
+            task.isCompleted = false
+        }
+
         return task
     }
 
