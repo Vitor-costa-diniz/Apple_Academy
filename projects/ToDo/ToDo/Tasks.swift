@@ -40,8 +40,9 @@ public class Tasks {
     private static func parseTask(from text: String) -> Tasks {
         // `[ ] - Title 1\t\tDescription of task`
         let indexOfFirstTab = text.firstIndex(of: "\t")!
-        let indexAfterCompletionStatusSeparator = text.firstIndex(of: "-")!
-        let title = String(text[indexAfterCompletionStatusSeparator..<indexOfFirstTab])
+        let indexOfCompletionStatusSeparator = text.firstIndex(of: "-")!
+        let startingIndexOfTitle = text.index(indexOfCompletionStatusSeparator, offsetBy: 2)
+        let title = String(text[startingIndexOfTitle..<indexOfFirstTab])
 
         let indexOfLastTab = text.lastIndex(of: "\t")!
         let description = String(text[text.index(after: indexOfLastTab)...])
