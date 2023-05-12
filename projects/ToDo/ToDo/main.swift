@@ -8,28 +8,36 @@
 import Foundation
 
 var rawUserInput : String?
-var usrName: String
+var usrName: String?
+
+var usrContinueOrNot: String?
+
+let defaultAppMessages = DefaultAppMessages()
+
+let task1 = Tasks(title: "Task 1", description: "Descrição Tarefa 1")
+let task2 = Tasks(title: "Task 1", description: "Descrição Tarefa 1")
+
+let taskArray = [task1, task2]
+
+
+print("\(defaultAppMessages.welcomeMessage)", terminator: "")
+usrName = readLine()
+
+
+    IO.saveTasksToDesktop(tasks: taskArray, fileName: "TaskList")
+
+
+
 
 
 repeat {
-
+    print(defaultAppMessages.defaultOptions)
     rawUserInput = readLine()
     
-} while rawUserInput?.lowercased() != "y"
-
-func getTasksPathFromDesktop() -> URL {
-    let documents = FileManager.default.urls(for: .desktopDirectory, in: .userDomainMask)
-    let tasksFilePath: URL = documents[0]  // This is an assumption!
-    return tasksFilePath
-}
-
-func saveTasksToDesktop(tasks: [Tasks], fileName: String) -> Void {
-    let filePath: URL = getTasksPathFromDesktop().appending(path: fileName)
-    let allTasksAsString = TodoList.convertTasksToString(tasks: tasks)
-    let textToWrite = allTasksAsString
-    do {
-        try textToWrite.write(to: filePath, atomically: true, encoding: .utf8)
-    } catch {
-        print(error.localizedDescription)
-    }
-}
+    
+    
+    usrContinueOrNot = defaultAppMessages.continueOrTerminate()
+    
+    
+    
+} while usrContinueOrNot?.lowercased() != "y"
