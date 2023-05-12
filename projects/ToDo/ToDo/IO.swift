@@ -16,9 +16,11 @@ public class IO {
     }
 
     private static func getTextFromURL(url: URL) -> String {
-        var text = ""
-        try? text = String(contentsOf: url)
-        return text
+        do {
+            return try String(contentsOf: url)
+        } catch {
+            return ""
+        }
     }
 
     public static func readTasksFromDesktop(fileName: String) -> String {
