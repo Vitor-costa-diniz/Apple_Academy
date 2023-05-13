@@ -22,5 +22,16 @@ public class TodoList {
         }
         return text
     }
+
+    public static func searchForTask(by title: String, tasks: [Tasks]) -> [Tasks] {
+        var matchedTasks: [Tasks] = []
+        for task in tasks {
+            if task.title == title {
+                matchedTasks.append(task)
+            }
+        }
+        return matchedTasks
+    }
+
 }
 
