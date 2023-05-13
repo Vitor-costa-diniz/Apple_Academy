@@ -9,43 +9,62 @@ import Foundation
 
 var rawUserInput : String?
 var usrName: String?
-
-var usrContinueOrNot: String?
-
+var tasksArrays: [Tasks] = []
 let defaultAppMessages = DefaultAppMessages()
-
-let task1 = Tasks(title: "Task 1", description: "Descrição Tarefa 1")
-let task2 = Tasks(title: "Task 1", description: "Descrição Tarefa 1")
-
-let taskArray = [task1, task2]
 
 
 print("\(defaultAppMessages.welcomeMessage)", terminator: "")
 usrName = readLine()
 
 
-    IO.saveTasksToDesktop(tasks: taskArray, fileName: "TaskList")
+var readTaskFromDesktop: String? = IO.readTasksFromDesktop(fileName: "TaskList")
+if readTaskFromDesktop == "" {
+    tasksArrays = []
+} else {
+    tasksArrays = Tasks.parseMultipleTasks(from: readTaskFromDesktop!)
+
+}
+
+
+defer {
+    IO.saveTasksToDesktop(tasks: tasksArrays, fileName: "TaskList")
+}
 
 repeat {
+
     print(defaultAppMessages.defaultOptions)
     rawUserInput = readLine()
-    
+
     switch rawUserInput {
+
     case "1":
-        var readTaskFromDesktop = IO.readTasksFromDesktop(fileName: "TaskList")
-        print(readTaskFromDesktop)
+        for element in tasksArrays {
+            print("\(element.asString())")
+        }
+
     case "2":
-        print("Adicionar uma Task")
+        let addTaskToArray = ManipulateArray.addTask()
+        tasksArrays.append(contentsOf: addTaskToArray)
+
     case "3":
+        let searchTask = ManipulateArray.searchTask(tasks: tasksArrays)
+        tasksArrays = searchTask
+
         print("Pesquisar uma tarefa")
     case "4":
-        print("Editar uma tarefa")
+        let edtingTask = ManipulateArray.editTasks(tasks: tasksArrays)
+        tasksArrays = edtingTask
+        
     case "5":
+        let removetask = ManipulateArray.removeTask(tasks: tasksArrays)
+        tasksArrays = removetask
         print("Excluir uma tarefa")
     case "6":
+
         print("Volte sempre \(usrName!)")
     default:
         print("Por favor utilize apenas os numeros apresentados na tela.")
     }
-    
-} while rawUserInput != "5"
+
+} while rawUserInput != "6"
+
