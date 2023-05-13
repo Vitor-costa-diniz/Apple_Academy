@@ -31,22 +31,22 @@ public class ManipulateArray {
         if var taskToEdit = mutatingTasks.first(where: { $0.title == usrInput }) {
             print("Tarefa encontrada:")
 
-            print("Digite o titulo da tarefa:")
-            let usrTitle = readLine()
-            print("Digite a descrição da tarefa:")
-            let usrDescription = readLine()
             print("Deseja Concluir a task? [Y/N] ")
             let usrComplete = readLine()
 
-            taskToEdit.title = usrTitle!
-            taskToEdit.description = usrDescription!
             if usrComplete!.lowercased() == "y" {
                 taskToEdit.isCompleted = true
             } else {
-                taskToEdit.isCompleted = false
-            }
+                print("Digite o titulo da tarefa:")
+                let usrTitle = readLine()
+                print("Digite a descrição da tarefa:")
+                let usrDescription = readLine()
 
-            // Now you can edit the task as needed
+
+                taskToEdit.title = usrTitle!
+                taskToEdit.description = usrDescription!
+            }
+            
 
         } else {
             print("Tarefa não encontrada.")
