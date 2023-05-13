@@ -31,6 +31,9 @@ public class Tasks {
         var tasks: [Tasks] = []
         let texts = text.components(separatedBy: "\n")
         for text in texts {
+            if text == "" {
+                continue
+            }
             let task = parseTask(from: text)
             tasks.append(task)
         }
