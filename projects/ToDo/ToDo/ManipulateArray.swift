@@ -13,11 +13,18 @@ public class ManipulateArray {
         var array: [Tasks] = []
 
         print("Digite o título da tarefa: ",terminator:"")
-        let title = readLine()
-        print("Digite a descrição da tarefa: ",terminator:"")
-        let description = readLine()
+        guard let title = readLine(),
+              !title.isEmpty
+        else { return [] }
 
-        let tasks = Tasks(title: title!, description: description!)
+        print("Digite a descrição da tarefa: ",terminator:"")
+        guard let description = readLine(),
+              !description.isEmpty
+        else {return []}
+
+
+
+        let tasks = Tasks(title: title, description: description)
         array.append(tasks)
         print("Task Adicionada")
 
@@ -32,19 +39,28 @@ public class ManipulateArray {
             print("Tarefa encontrada:")
 
             print("Deseja Concluir a task? [Y/N] ")
-            let usrComplete = readLine()
+            guard let usrComplete = readLine(),
+                  !usrComplete.isEmpty
+            else {return mutatingTasks}
 
-            if usrComplete!.lowercased() == "y" {
+            if usrComplete.lowercased() == "y" {
                 taskToEdit.isCompleted = true
+
             } else {
+                
                 print("Digite o titulo da tarefa:")
-                let usrTitle = readLine()
+                guard let usrTitle = readLine(),
+                      !usrTitle.isEmpty
+                else { return mutatingTasks}
+
                 print("Digite a descrição da tarefa:")
-                let usrDescription = readLine()
+                guard let usrDescription = readLine(),
+                      !usrTitle.isEmpty
+                else {return mutatingTasks}
 
 
-                taskToEdit.title = usrTitle!
-                taskToEdit.description = usrDescription!
+                taskToEdit.title = usrTitle
+                taskToEdit.description = usrDescription
             }
             
 
@@ -74,7 +90,12 @@ public class ManipulateArray {
         var mutatingTasks = tasks
         print("Digite o Título da tarefa que deseja remover:")
         let usrInput = readLine()
-        mutatingTasks.removeAll { $0.title == usrInput! }
-        return mutatingTasks
+        if let usrInput {
+            mutatingTasks.removeAll { $0.title == usrInput }
+            return mutatingTasks
+        } else {
+            print("Tarefa não encontrada")
+            return mutatingTasks
+        }
     }
 }

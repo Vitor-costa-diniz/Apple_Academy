@@ -25,7 +25,6 @@ if readTaskFromDesktop == "" {
 
 }
 
-
 defer {
     IO.saveTasksToDesktop(tasks: tasksArrays, fileName: "TaskList")
 }
@@ -38,9 +37,14 @@ repeat {
     switch rawUserInput {
 
     case "1":
-        for element in tasksArrays {
-            print("\(element.asString())")
+        if tasksArrays .isEmpty {
+            print("Nenhuma tarefa cadastrada")
+        } else {
+            for element in tasksArrays {
+                print("\(element.asString())")
+            }
         }
+
 
     case "2":
         let addTaskToArray = ManipulateArray.addTask()
@@ -61,7 +65,11 @@ repeat {
         print("Excluir uma tarefa")
     case "6":
 
-        print("Volte sempre \(usrName!)")
+        if let usrName {
+            print("Volte sempre \(usrName)")
+        } else {
+            print("Volte sempre")
+        }
     default:
         print("Por favor utilize apenas os numeros apresentados na tela.")
     }
